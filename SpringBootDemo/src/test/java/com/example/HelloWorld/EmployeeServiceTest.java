@@ -24,7 +24,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void testCreateEmployee() {
-        // Arrange
+        
         Employee employee = new Employee();
         employee.setId(1);
         employee.setName("John Doe");
@@ -33,7 +33,7 @@ public class EmployeeServiceTest {
 
         when(employeeRepository.save(employee)).thenReturn(employee);
 
-        // Act
+        
         Employee createdEmployee = employeeService.createEmployee(employee);
 
         // Assert
@@ -44,4 +44,24 @@ public class EmployeeServiceTest {
 
         verify(employeeRepository, times(1)).save(employee);
     }
+    
+    @Test
+    public void testUpdateEmployee() {
+        
+        Employee employee = new Employee();
+        employee.setId(1);
+        employee.setName("John Doe");
+        employee.setEmail("jason@gmail.com");
+        employee.setSalary(40000);
+
+        when(employeeRepository.save(employee)).thenReturn(employee);
+
+        
+        employeeService.updateEmployee(employee);
+
+
+
+        verify(employeeRepository, times(1)).save(employee);
+    }
+    
 }
