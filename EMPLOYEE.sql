@@ -7,4 +7,4 @@ CREATE TABLE `employee` (
   `SALARY` int(10) DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
-insert  into `employee`(`ID`,`NAME`,`AGE`,`SALARY`) values (1,'Peter','abc@gmail.com',90000),(2,'Dave','def@gmail.com',6000);
+insert  into `employee`(`ID`,`NAME`,`EMAIL`,`SALARY`) values (1,'Peter','abc@gmail.com',90000),(2,'Dave','def@gmail.com',6000);
