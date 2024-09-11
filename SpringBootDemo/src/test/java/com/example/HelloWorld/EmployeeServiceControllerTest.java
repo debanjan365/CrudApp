@@ -17,7 +17,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
@@ -60,5 +65,28 @@ public class EmployeeServiceControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().string("Employee is created successfully with id = " + mockEmployee.getId()));
     } 
+    
+    @Test
+    public void testDeleteEmployee_Success() throws Exception {
+        int employeeId = 1;
+        when(employeeService.isEmployeeExist(employeeId)).thenReturn(true);
+
+        mockMvc.perform(delete("/employees/{id}", employeeId))
+                .andExpect(status().isOk());
+
+        verify(employeeService, times(1)).deleteEmployee(employeeId);
+    }
+    
+    @Test
+    public void testDeleteEmployee_NotFound() throws Exception {
+        int employeeId = 1;
+        when(employeeService.isEmployeeExist(employeeId)).thenReturn(false);
+
+        mockMvc.perform(delete("/employees/{id}", employeeId))
+                .andExpect(status().isNotFound());
+
+        verify(employeeService, never()).deleteEmployee(employeeId);
+    }
+
 
 }
